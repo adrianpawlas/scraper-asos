@@ -35,6 +35,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Install Playwright browsers
+      run: playwright install --with-deps chromium
+
     - name: Create output directory
       run: mkdir -p scraper_output
 
@@ -54,8 +57,8 @@ jobs:
           LIMIT_ARG=""  # Scrape all categories
         fi
 
-        # Run the multi-category scraper
-        python asos_scraper_multi_category.py $LIMIT_ARG
+        # Run the browser-based scraper (bypasses API blocking)
+        python asos_scraper_browser.py $LIMIT_ARG
 
         echo "Scraper completed at $(date)"
 
