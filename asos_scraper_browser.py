@@ -159,12 +159,12 @@ class ASOSBrowserScraper:
             # Wait for initial page load
             await page.wait_for_timeout(5000)
 
-            # Try to find products on the page
-            # ASOS loads products dynamically, so we need to scroll and wait
+            # Load additional products using pagination
+            logger.info("Loading additional product pages...")
             await self.scroll_and_wait(page)
 
-            # Additional wait for AJAX content
-            await page.wait_for_timeout(5000)
+            # Additional wait for any remaining AJAX content
+            await page.wait_for_timeout(3000)
 
             # Debug: Check page structure
             page_info = await page.evaluate("""
@@ -185,7 +185,7 @@ class ASOSBrowserScraper:
 
             logger.info(f"Page info: {page_info}")
 
-            # Extract product data from the page
+            # Extract product data from all loaded pages
             product_data = await page.evaluate("""
                 () => {
                     const products = [];
@@ -364,49 +364,82 @@ class ASOSBrowserScraper:
 
         return products
 
-    async def scroll_and_wait(self, page):
-        """Scroll down the page to load more products"""
-        try:
-            # First, try to click any "load more" or "show more" buttons
-            load_more_selectors = [
-                'button[data-auto-id*="loadMore"]',
-                'button[class*="load-more"]',
-                'button:contains("Load More")',
-                'button:contains("Show More")',
-                '[data-auto-id*="pagination"] button',
-                '.pagination button'
-            ]
+    async def load_more_products(self, page, max_clicks=10):
+        """Click the ASOS Load More button to load additional products"""
+        clicks = 0
 
-            for selector in load_more_selectors:
-                try:
-                    button = await page.query_selector(selector)
-                    if button:
-                        logger.info(f"Found load more button with selector: {selector}")
-                        await button.click()
-                        await page.wait_for_timeout(3000)
+        while clicks < max_clicks:
+            try:
+                # Look for the specific ASOS load more button from user-provided HTML
+                load_button = await page.query_selector('a.loadButton_wWQ3F[data-auto-id="loadMoreProducts"]')
+
+                if not load_button:
+                    # Try alternative selectors in case they change
+                    load_button = await page.query_selector('[data-auto-id="loadMoreProducts"]')
+                    if not load_button:
+                        load_button = await page.query_selector('.loadButton_wWQ3F')
+                        if not load_button:
+                            load_button = await page.query_selector('a[href*="page="][class*="loadButton"]')
+
+                if load_button:
+                    # Check if button is visible and enabled
+                    is_visible = await load_button.is_visible()
+                    if not is_visible:
+                        logger.info("Load more button not visible, stopping")
                         break
-                except Exception:
-                    continue
 
-            # Scroll down multiple times to load products
-            for i in range(5):  # Increased from 3 to 5
-                await page.evaluate("""
-                    window.scrollTo(0, document.body.scrollHeight);
-                """)
-                await page.wait_for_timeout(2000)
+                    logger.info(f"Clicking ASOS load more button (page {clicks + 2})")
 
-            # Try infinite scroll by scrolling to bottom multiple times
-            for i in range(3):
-                await page.evaluate("""
-                    window.scrollTo(0, document.body.scrollHeight + 1000);
-                """)
-                await page.wait_for_timeout(1500)
+                    # Scroll to button to ensure it's in view
+                    await load_button.scroll_into_view_if_needed()
+                    await page.wait_for_timeout(1000)
 
-            # Wait a bit more for dynamic content
-            await page.wait_for_timeout(5000)
+                    # Click the button
+                    await load_button.click()
+
+                    # Wait for new products to load (ASOS pagination takes time)
+                    await page.wait_for_timeout(8000)
+
+                    # Scroll down to ensure new content is visible
+                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight);")
+                    await page.wait_for_timeout(2000)
+
+                    clicks += 1
+
+                    # Check if we've reached the end (button might disappear or change)
+                    still_exists = await page.query_selector('a.loadButton_wWQ3F[data-auto-id="loadMoreProducts"]')
+                    if not still_exists:
+                        logger.info("Load more button disappeared, reached end of products")
+                        break
+
+                    # Also check if the button's href changed to indicate end
+                    href = await load_button.get_attribute('href')
+                    if href and 'page=1' in href:  # Sometimes buttons cycle back
+                        logger.info("Load more button reset to page 1, reached end")
+                        break
+
+                else:
+                    logger.info("No ASOS load more button found")
+                    break
+
+            except Exception as e:
+                logger.warning(f"Error clicking load more button: {e}")
+                break
+
+        logger.info(f"Successfully clicked load more button {clicks} times, loaded {clicks + 1} pages")
+
+    async def scroll_and_wait(self, page):
+        """Load products using ASOS pagination system"""
+        try:
+            # Use the specific ASOS load more functionality
+            await self.load_more_products(page, max_clicks=10)  # Load up to 10 additional pages
+
+            # Final scroll to ensure all content is accessible
+            await page.evaluate("window.scrollTo(0, document.body.scrollHeight);")
+            await page.wait_for_timeout(2000)
 
         except Exception as e:
-            logger.warning(f"Error during scrolling: {e}")
+            logger.warning(f"Error during product loading: {e}")
 
     async def download_and_process_image(self, image_url: str) -> Optional[np.ndarray]:
         """Download image and create embedding"""
