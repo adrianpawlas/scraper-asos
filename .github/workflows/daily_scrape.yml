@@ -1,0 +1,107 @@
+name: Daily ASOS Scraper
+
+on:
+  schedule:
+    # Run daily at midnight UTC (adjust timezone as needed)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allow manual triggering
+    inputs:
+      categories_limit:
+        description: 'Maximum number of categories to scrape (leave empty for all)'
+        required: false
+        type: number
+      force_run:
+        description: 'Force run even if recent data exists'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # 6 hours timeout
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Create output directory
+      run: mkdir -p scraper_output
+
+    - name: Run ASOS scraper
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        CATEGORIES_LIMIT: ${{ github.event.inputs.categories_limit }}
+        FORCE_RUN: ${{ github.event.inputs.force_run }}
+      run: |
+        echo "Starting ASOS scraper at $(date)"
+
+        # Set categories limit if provided
+        if [ ! -z "$CATEGORIES_LIMIT" ]; then
+          LIMIT_ARG="$CATEGORIES_LIMIT"
+        else
+          LIMIT_ARG=""  # Scrape all categories
+        fi
+
+        # Run the multi-category scraper
+        python asos_scraper_multi_category.py $LIMIT_ARG
+
+        echo "Scraper completed at $(date)"
+
+    - name: Upload scraper logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: scraper-logs-${{ github.run_number }}
+        path: |
+          *.log
+          scraper_output/
+          successful_products*.json
+          failed_products*.json
+          checkpoint_*.json
+
+    - name: Create summary comment
+      if: always()
+      run: |
+        echo "## ASOS Scraper Run Summary" >> summary.md
+        echo "- **Run Date:** $(date)" >> summary.md
+        echo "- **Trigger:** ${{ github.event_name }}" >> summary.md
+        echo "- **Status:** ${{ job.status }}" >> summary.md
+
+        if [ -f "successful_products_multi.json" ]; then
+          PRODUCT_COUNT=$(python -c "import json; print(len(json.load(open('successful_products_multi.json'))))")
+          echo "- **Products Scraped:** $PRODUCT_COUNT" >> summary.md
+        fi
+
+        if [ -f "asos_scraper_multi.log" ]; then
+          echo "- **Log File:** Available in artifacts" >> summary.md
+        fi
+
+        echo "" >> summary.md
+        echo "### Next Run" >> summary.md
+        echo "Scheduled for tomorrow at midnight UTC" >> summary.md
+
+    - name: Upload summary
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: run-summary-${{ github.run_number }}
+        path: summary.md
+
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ ASOS scraper failed!"
+        echo "Check the logs and artifacts for details."
+        echo "Manual trigger available at: https://github.com/${{ github.repository }}/actions/workflows/daily_scrape.yml"

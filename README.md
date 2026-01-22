@@ -2,6 +2,25 @@
 
 A comprehensive scraper for ASOS fashion products that extracts product information, generates 768-dimensional image embeddings, and stores everything in Supabase.
 
+## 🚀 Quick Start
+
+### Automated (Recommended)
+- **Daily runs automatically at midnight UTC**
+- Trigger manually via GitHub Actions
+- No local setup required
+
+### Manual Execution
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run scraper manually
+python run_scraper.py
+
+# Or run directly
+python asos_scraper_multi_category.py 10  # Scrape 10 categories
+```
+
 ## Features
 
 ✅ **Complete Product Data Extraction**
@@ -110,6 +129,41 @@ CREATE TABLE products (
 **Price Conversion:**
 - Converts GBP to USD (approximate rate: 1 GBP = 1.27 USD)
 - Maintains original currency information
+
+## 🤖 GitHub Actions Automation
+
+### Daily Automated Runs
+- **Schedule:** Every day at midnight UTC
+- **Trigger:** Automatic cron job
+- **Results:** Available in Actions tab and artifacts
+
+### Manual Trigger via GitHub
+1. Go to [GitHub Actions](https://github.com/adrianpawlas/scraper-asos/actions)
+2. Click "Daily ASOS Scraper" workflow
+3. Click "Run workflow"
+4. Configure options (optional):
+   - **Categories limit:** Number of categories to scrape
+   - **Force run:** Override any existing checks
+
+### Required GitHub Secrets
+Add these to your repository secrets (`Settings` → `Secrets and variables` → `Actions`):
+- `SUPABASE_URL`: Your Supabase project URL
+- `SUPABASE_ANON_KEY`: Your Supabase anon key
+
+### Manual Local Execution
+```bash
+# Quick test (sample data only)
+python run_scraper.py --sample-only
+
+# Test with 5 categories
+python run_scraper.py --test
+
+# Full scrape (all categories)
+python run_scraper.py
+
+# Custom number of categories
+python run_scraper.py --categories 50
+```
 
 ## Troubleshooting
 
