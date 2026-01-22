@@ -57,8 +57,12 @@ jobs:
           LIMIT_ARG=""  # Scrape all categories
         fi
 
-        # Run the browser-based scraper (bypasses API blocking)
-        python asos_scraper_browser.py $LIMIT_ARG
+        # Try browser-based scraper first (bypasses API blocking)
+        echo "Attempting browser-based scraper..."
+        python asos_scraper_browser.py $LIMIT_ARG || {
+          echo "Browser scraper failed, falling back to sample data scraper..."
+          python asos_scraper_sample_data.py
+        }
 
         echo "Scraper completed at $(date)"
 

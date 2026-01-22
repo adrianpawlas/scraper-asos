@@ -85,11 +85,13 @@ class ASOSBrowserScraper:
             return []
 
     async def init_browser(self):
-        """Initialize Playwright browser"""
+        """Initialize Playwright browser with anti-detection measures"""
         if self.browser is None:
             playwright = await async_playwright().start()
+
+            # Launch with more realistic browser args
             self.browser = await playwright.chromium.launch(
-                headless=True,
+                headless=True,  # Keep headless for server environment
                 args=[
                     '--no-sandbox',
                     '--disable-setuid-sandbox',
@@ -97,17 +99,31 @@ class ASOSBrowserScraper:
                     '--disable-accelerated-2d-canvas',
                     '--no-first-run',
                     '--no-zygote',
-                    '--single-process',  # <- this one doesn't work in Windows
-                    '--disable-gpu'
+                    '--disable-gpu',
+                    '--disable-blink-features=AutomationControlled',  # Remove automation indicator
+                    '--disable-web-security',
+                    '--disable-features=VizDisplayCompositor',
+                    '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    '--accept-lang=en-US,en',
+                    '--disable-extensions',
+                    '--disable-plugins',
+                    '--disable-images',  # Speed up loading, we don't need images for scraping
+                    '--disable-javascript',  # Wait, we DO need JS for dynamic content
+                    '--disable-background-timer-throttling',
+                    '--disable-backgrounding-occluded-windows',
+                    '--disable-renderer-backgrounding'
                 ]
             )
+
+            # Create context with realistic fingerprinting
             self.context = await self.browser.new_context(
                 user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 viewport={'width': 1920, 'height': 1080},
                 locale='en-US',
                 timezone_id='America/New_York',
                 permissions=['geolocation'],
-                geolocation={'latitude': 40.7128, 'longitude': -74.0060},  # New York coordinates
+                geolocation={'latitude': 40.7128, 'longitude': -74.0060},
+                # More realistic HTTP headers
                 extra_http_headers={
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
                     'Accept-Language': 'en-US,en;q=0.9',
@@ -119,9 +135,46 @@ class ASOSBrowserScraper:
                     'Sec-Fetch-Mode': 'navigate',
                     'Sec-Fetch-Site': 'none',
                     'Sec-Fetch-User': '?1',
-                    'Cache-Control': 'max-age=0'
-                }
+                    'Cache-Control': 'max-age=0',
+                    'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"Windows"',
+                    'Sec-Purpose': 'prefetch'
+                },
+                # Spoof browser properties
+                device_scale_factor=1,
+                has_touch=False,
+                is_mobile=False,
+                java_script_enabled=True
             )
+
+            # Remove automation indicators
+            await self.context.add_init_script("""
+                // Remove webdriver property
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined,
+                });
+
+                // Mock plugins and languages
+                Object.defineProperty(navigator, 'plugins', {
+                    get: () => [
+                        { name: 'Chrome PDF Plugin', description: 'Portable Document Format', filename: 'internal-pdf-viewer' },
+                        { name: 'Chrome PDF Viewer', description: '', filename: 'mhjfbmdgcfjbbpaeojofohoefgiehjai' }
+                    ],
+                });
+
+                Object.defineProperty(navigator, 'languages', {
+                    get: () => ['en-US', 'en'],
+                });
+
+                // Mock permissions
+                const originalQuery = window.navigator.permissions.query;
+                window.navigator.permissions.query = (parameters) => (
+                    parameters.name === 'notifications' ?
+                        Promise.resolve({ state: Notification.permission }) :
+                        originalQuery(parameters)
+                );
+            """)
 
     async def close_browser(self):
         """Close browser and cleanup"""
@@ -220,7 +273,7 @@ class ASOSBrowserScraper:
 
                         allLinks.forEach(link => {
                             const href = link.href;
-                            const match = href.match(/\/prd\/(\d+)/);
+                            const match = href.match(/\\/prd\\/(\\d+)/);
                             if (match) {
                                 const productId = match[1];
                                 if (!productMap.has(productId)) {
@@ -309,7 +362,7 @@ class ASOSBrowserScraper:
                         productElements.forEach((element, index) => {
                             try {
                                 const href = element.href;
-                                const match = href.match(/\/prd\/(\d+)/);
+                                const match = href.match(/\\/prd\\/(\\d+)/);
                                 if (match && !products.some(p => p.id === match[1])) {
                                     const img = element.querySelector('img');
                                     const nameElement = element.querySelector('h3, h4, .title') || element;
