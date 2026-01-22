@@ -32,6 +32,12 @@ def main():
         help='Run test mode with minimal categories'
     )
     parser.add_argument(
+        '--browser',
+        '-b',
+        action='store_true',
+        help='Use browser automation (bypasses API blocking)'
+    )
+    parser.add_argument(
         '--verbose',
         '-v',
         action='store_true',
@@ -50,18 +56,29 @@ def main():
         script_name = "asos_scraper.py"
         script_args = []
         print("📝 Mode: Sample data only (using 3.txt)")
+    elif args.browser:
+        script_name = "asos_scraper_browser.py"
+        if args.test:
+            script_args = ["5"]  # Test with 5 categories
+            print("🧪 Mode: Browser test mode (5 categories)")
+        elif args.categories:
+            script_args = [str(args.categories)]
+            print(f"🎯 Mode: Browser custom categories ({args.categories})")
+        else:
+            script_args = ["10"]  # Default to 10 categories for browser mode (slower)
+            print("🌍 Mode: Browser scrape (10 categories - browser mode is slower)")
     elif args.test:
         script_name = "asos_scraper_multi_category.py"
         script_args = ["5"]  # Test with 5 categories
-        print("🧪 Mode: Test mode (5 categories)")
+        print("🧪 Mode: API test mode (5 categories - may fail due to blocking)")
     else:
         script_name = "asos_scraper_multi_category.py"
         if args.categories:
             script_args = [str(args.categories)]
-            print(f"🎯 Mode: Custom categories ({args.categories})")
+            print(f"🎯 Mode: API custom categories ({args.categories} - may fail due to blocking)")
         else:
             script_args = []
-            print("🌍 Mode: Full scrape (all categories)")
+            print("🌍 Mode: API full scrape (all categories - likely to fail due to blocking)")
 
     print(f"Script: {script_name}")
     print(f"Arguments: {script_args}")
