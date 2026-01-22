@@ -1,0 +1,1341 @@
+{
+  "searchTerm": "",
+  "categoryName": "New in: Today",
+  "itemCount": 143,
+  "redirectUrl": "",
+  "products": [
+    {
+      "id": 209772779,
+      "name": "ASOS DESIGN oversized t-shirt with old fashioned graphic in white",
+      "price": {
+        "current": {
+          "value": 12,
+          "text": "£12.00"
+        },
+        "previous": {
+          "value": null,
+          "text": ""
+        },
+        "rrp": {
+          "value": null,
+          "text": ""
+        },
+        "lowestPriceInLast30Days": {
+          "value": null,
+          "text": ""
+        },
+        "isMarkedDown": false,
+        "isOutletPrice": false,
+        "currency": "GBP",
+        "context": null,
+        "additionalContexts": []
+      },
+      "colour": "WHITE",
+      "colourWayId": 209772785,
+      "brandName": "ASOS DESIGN",
+      "hasVariantColours": false,
+      "hasMultiplePrices": false,
+      "groupId": null,
+      "productCode": 152933033,
+      "productType": "Product",
+      "url": "asos-design/asos-design-oversized-t-shirt-with-old-fashioned-graphic-in-white/prd/209772779#colourWayId-209772785",
+      "imageUrl": "images.asos-media.com/products/asos-design-oversized-t-shirt-with-old-fashioned-graphic-in-white/209772779-1-white",
+      "additionalImageUrls": [
+        "images.asos-media.com/products/asos-design-oversized-t-shirt-with-old-fashioned-graphic-in-white/209772779-2",
+        "images.asos-media.com/products/asos-design-oversized-t-shirt-with-old-fashioned-graphic-in-white/209772779-3",
+        "images.asos-media.com/products/asos-design-oversized-t-shirt-with-old-fashioned-graphic-in-white/209772779-4",
+        "images.asos-media.com/products/asos-design-oversized-t-shirt-with-old-fashioned-graphic-in-white/209772779-5"
+      ],
+      "videoUrl": null,
+      "videoAssetId": null,
+      "showVideo": false,
+      "isSellingFast": false,
+      "isRestockingSoon": false,
+      "isPromotion": false,
+      "sponsoredCampaignId": null,
+      "facetGroupings": [],
+      "advertisement": null,
+      "earlyAccess": null
+    }
+  ],
+  "facets": [
+    {
+      "id": "brand",
+      "name": "Brand",
+      "facetValues": [
+        {
+          "count": 7,
+          "id": "15643",
+          "name": "4505",
+          "isSelected": false
+        },
+        {
+          "count": 56,
+          "id": "53",
+          "name": "ASOS DESIGN",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "14379",
+          "name": "AAPE BY A BATHING APE®",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "14370",
+          "name": "Abercrombie & Fitch",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "18",
+          "name": "adidas Originals",
+          "isSelected": false
+        },
+        {
+          "count": 6,
+          "id": "16346",
+          "name": "adidas performance",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "14758",
+          "name": "ADPT",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "13688",
+          "name": "Asics",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "15370",
+          "name": "Bershka",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "105",
+          "name": "Calvin Klein",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "12507",
+          "name": "Calvin Klein Jeans",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "15878",
+          "name": "Collusion",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "12069",
+          "name": "Gant",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "12279",
+          "name": "Gap",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "14644",
+          "name": "Hollister",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "62550",
+          "name": "Hugo Red",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "63169",
+          "name": "Intimissimi",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "63217",
+          "name": "Jack & Jones",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "62881",
+          "name": "JJ Rebel",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "62857",
+          "name": "Korean Skincare",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "14423",
+          "name": "Liquor N Poker",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "12117",
+          "name": "Mango",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "2986",
+          "name": "Nike",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "3594",
+          "name": "Polo Ralph Lauren",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "14126",
+          "name": "Pull&Bear",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "3312",
+          "name": "The North Face",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "14538",
+          "name": "Threadbare",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "15631",
+          "name": "Tommy Jeans",
+          "isSelected": false
+        },
+        {
+          "count": 7,
+          "id": "16236",
+          "name": "Topman",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "15203",
+          "name": "Under Armour",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "765",
+          "name": "Vans",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "attribute_10992",
+      "name": "Category",
+      "facetValues": [
+        {
+          "count": 44,
+          "id": "61383",
+          "name": "Tops",
+          "isSelected": false
+        },
+        {
+          "count": 29,
+          "id": "61377",
+          "name": "Jeans & Trousers",
+          "isSelected": false
+        },
+        {
+          "count": 28,
+          "id": "61382",
+          "name": "Knitwear & Sweats",
+          "isSelected": false
+        },
+        {
+          "count": 15,
+          "id": "61467",
+          "name": "Suits & Tailoring",
+          "isSelected": false
+        },
+        {
+          "count": 12,
+          "id": "61388",
+          "name": "Footwear",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "61384",
+          "name": "Accessories",
+          "isSelected": false
+        },
+        {
+          "count": 6,
+          "id": "61380",
+          "name": "Outerwear",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "61386",
+          "name": "Underwear & Nightwear",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "61387",
+          "name": "Jewellery & Watches",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "61374",
+          "name": "All in ones",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "attribute_1047",
+      "name": "Product Type",
+      "facetValues": [
+        {
+          "count": 36,
+          "id": "8415",
+          "name": "T-shirts",
+          "isSelected": false
+        },
+        {
+          "count": 17,
+          "id": "8397",
+          "name": "Trousers",
+          "isSelected": false
+        },
+        {
+          "count": 11,
+          "id": "8405",
+          "name": "Sweatshirts",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "8391",
+          "name": "Hoodies",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "8407",
+          "name": "Joggers",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "8606",
+          "name": "Trainers",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "8400",
+          "name": "Blazers",
+          "isSelected": false
+        },
+        {
+          "count": 6,
+          "id": "8401",
+          "name": "Jackets",
+          "isSelected": false
+        },
+        {
+          "count": 4,
+          "id": "8390",
+          "name": "Shirts",
+          "isSelected": false
+        },
+        {
+          "count": 4,
+          "id": "8404",
+          "name": "Cardigans",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "8387",
+          "name": "Jumpers",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "8414",
+          "name": "Vests",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "8654",
+          "name": "Suit Trousers",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "9038",
+          "name": "Pyjama Bottoms",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8283",
+          "name": "Bags",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8393",
+          "name": "Jeans",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8554",
+          "name": "Waistcoats",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8655",
+          "name": "Suit Jackets",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "10888",
+          "name": "Polo Shirts",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8236",
+          "name": "Gloves",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8238",
+          "name": "Beanies",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8245",
+          "name": "Hats",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8248",
+          "name": "Headbands",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8253",
+          "name": "Belts",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8265",
+          "name": "Ties",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8275",
+          "name": "Caps",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8472",
+          "name": "Tracksuits",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8568",
+          "name": "Underwear Sets",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8572",
+          "name": "Trunks",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8585",
+          "name": "Boots",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8608",
+          "name": "Necklaces",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8609",
+          "name": "Shoes",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8612",
+          "name": "Rings",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "9746",
+          "name": "Masks",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "base_colour",
+      "name": "Colour",
+      "facetValues": [
+        {
+          "count": 32,
+          "id": "16",
+          "name": "Grey",
+          "isSelected": false
+        },
+        {
+          "count": 30,
+          "id": "4",
+          "name": "Black",
+          "isSelected": false
+        },
+        {
+          "count": 16,
+          "id": "33",
+          "name": "Navy",
+          "isSelected": false
+        },
+        {
+          "count": 16,
+          "id": "5",
+          "name": "White",
+          "isSelected": false
+        },
+        {
+          "count": 14,
+          "id": "3",
+          "name": "Blue",
+          "isSelected": false
+        },
+        {
+          "count": 9,
+          "id": "10",
+          "name": "Brown",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "2",
+          "name": "Green",
+          "isSelected": false
+        },
+        {
+          "count": 6,
+          "id": "17",
+          "name": "Multi",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "37",
+          "name": "Neutral",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "12",
+          "name": "Silver",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "1",
+          "name": "Red",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "11",
+          "name": "Gold",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "21",
+          "name": "No colour",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "attribute_1046",
+      "name": "Style",
+      "facetValues": [
+        {
+          "count": 27,
+          "id": "61468",
+          "name": "Other",
+          "isSelected": false
+        },
+        {
+          "count": 23,
+          "id": "8192",
+          "name": "Regular",
+          "isSelected": false
+        },
+        {
+          "count": 21,
+          "id": "61476",
+          "name": "Relaxed",
+          "isSelected": false
+        },
+        {
+          "count": 19,
+          "id": "61475",
+          "name": "Oversized",
+          "isSelected": false
+        },
+        {
+          "count": 7,
+          "id": "8205",
+          "name": "Slim",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "8430",
+          "name": "Tapered",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "61461",
+          "name": "Overshirts",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "10803",
+          "name": "Bomber Jacket",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "10809",
+          "name": "Cargo",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8204",
+          "name": "Tote",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8306",
+          "name": "Wide Leg",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "8319",
+          "name": "Zip Up",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "10800",
+          "name": "Monk Strap",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "61474",
+          "name": "Muscle",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "62002",
+          "name": "Flatform",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "75002",
+          "name": "Baggy",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8188",
+          "name": "Flat",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8195",
+          "name": "Skinny",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8208",
+          "name": "Trucker",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8209",
+          "name": "Trapper",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8310",
+          "name": "Straight Leg",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8351",
+          "name": "Cable",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8418",
+          "name": "Track",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "8424",
+          "name": "Harrington",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "size",
+      "name": "Size",
+      "facetValues": [
+        {
+          "count": 9,
+          "id": "4530",
+          "name": "2XS",
+          "isSelected": false
+        },
+        {
+          "count": 68,
+          "id": "279",
+          "name": "XS",
+          "isSelected": false
+        },
+        {
+          "count": 79,
+          "id": "278",
+          "name": "S",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "38542",
+          "name": "S-M",
+          "isSelected": false
+        },
+        {
+          "count": 78,
+          "id": "277",
+          "name": "M",
+          "isSelected": false
+        },
+        {
+          "count": 79,
+          "id": "276",
+          "name": "L",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "37343",
+          "name": "L-XL",
+          "isSelected": false
+        },
+        {
+          "count": 77,
+          "id": "318",
+          "name": "XL",
+          "isSelected": false
+        },
+        {
+          "count": 65,
+          "id": "4529",
+          "name": "2XL",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "4531",
+          "name": "3XL",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "4568",
+          "name": "4XL",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "3255",
+          "name": "UK 3",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "6397",
+          "name": "UK 3.5",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "115",
+          "name": "UK 4",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "5956",
+          "name": "UK 4.5",
+          "isSelected": false
+        },
+        {
+          "count": 6,
+          "id": "3256",
+          "name": "UK 5",
+          "isSelected": false
+        },
+        {
+          "count": 7,
+          "id": "5957",
+          "name": "UK 5.5",
+          "isSelected": false
+        },
+        {
+          "count": 11,
+          "id": "116",
+          "name": "UK 6",
+          "isSelected": false
+        },
+        {
+          "count": 6,
+          "id": "6398",
+          "name": "UK 6.5",
+          "isSelected": false
+        },
+        {
+          "count": 11,
+          "id": "3257",
+          "name": "UK 7",
+          "isSelected": false
+        },
+        {
+          "count": 7,
+          "id": "5340",
+          "name": "UK 7.5",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "117",
+          "name": "UK 8",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "5341",
+          "name": "UK 8.5",
+          "isSelected": false
+        },
+        {
+          "count": 11,
+          "id": "3258",
+          "name": "UK 9",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "5342",
+          "name": "UK 9.5",
+          "isSelected": false
+        },
+        {
+          "count": 11,
+          "id": "110",
+          "name": "UK 10",
+          "isSelected": false
+        },
+        {
+          "count": 7,
+          "id": "5338",
+          "name": "UK 10.5",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "3254",
+          "name": "UK 11",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "6978",
+          "name": "UK 11.5",
+          "isSelected": false
+        },
+        {
+          "count": 8,
+          "id": "111",
+          "name": "UK 12",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "7535",
+          "name": "UK 12.5",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "5339",
+          "name": "UK 13",
+          "isSelected": false
+        },
+        {
+          "count": 9,
+          "id": "1770",
+          "name": "W28",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "870",
+          "name": "W28 L32",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "44741",
+          "name": "W29-31",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "1772",
+          "name": "W30",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "875",
+          "name": "W30 L30",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "876",
+          "name": "W30 L32",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "1773",
+          "name": "W31",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "1774",
+          "name": "W32",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "881",
+          "name": "W32 L30",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "882",
+          "name": "W32 L32",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "883",
+          "name": "W32 L34",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "1776",
+          "name": "W34",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "887",
+          "name": "W34 L30",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "888",
+          "name": "W34 L32",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "889",
+          "name": "W34 L34",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "45656",
+          "name": "W35-37",
+          "isSelected": false
+        },
+        {
+          "count": 10,
+          "id": "1778",
+          "name": "W36",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "894",
+          "name": "W36 L32",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "895",
+          "name": "W36 L34",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "1779",
+          "name": "W38",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "4615",
+          "name": "W38 L30",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "4616",
+          "name": "W38 L32",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "4617",
+          "name": "W38 L34",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "4918",
+          "name": "W40 L30",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "4919",
+          "name": "W40 L32",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "4923",
+          "name": "W42 L30",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "4928",
+          "name": "W44 L30",
+          "isSelected": false
+        },
+        {
+          "count": 9,
+          "id": "16343",
+          "name": "Chest 36",
+          "isSelected": false
+        },
+        {
+          "count": 9,
+          "id": "16344",
+          "name": "Chest 38",
+          "isSelected": false
+        },
+        {
+          "count": 9,
+          "id": "16345",
+          "name": "Chest 40",
+          "isSelected": false
+        },
+        {
+          "count": 9,
+          "id": "16346",
+          "name": "Chest 42",
+          "isSelected": false
+        },
+        {
+          "count": 4,
+          "id": "16347",
+          "name": "Chest 44",
+          "isSelected": false
+        },
+        {
+          "count": 1,
+          "id": "16348",
+          "name": "Chest 46",
+          "isSelected": false
+        },
+        {
+          "count": 4,
+          "id": "13",
+          "name": "One Size",
+          "isSelected": false
+        },
+        {
+          "count": 5,
+          "id": "14502",
+          "name": "No Size",
+          "isSelected": false
+        },
+        {
+          "count": 18,
+          "id": "126975",
+          "name": "Chest 46-48",
+          "isSelected": false
+        },
+        {
+          "count": 14,
+          "id": "128371",
+          "name": "Chest 33-34",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "138943",
+          "name": "W38-40",
+          "isSelected": false
+        },
+        {
+          "count": 14,
+          "id": "139903",
+          "name": "Chest 50-52",
+          "isSelected": false
+        },
+        {
+          "count": 19,
+          "id": "143633",
+          "name": "Chest 38-40",
+          "isSelected": false
+        },
+        {
+          "count": 18,
+          "id": "143657",
+          "name": "Chest 35-37",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "149966",
+          "name": "W26-28",
+          "isSelected": false
+        },
+        {
+          "count": 13,
+          "id": "152397",
+          "name": "Chest 52-54",
+          "isSelected": false
+        },
+        {
+          "count": 2,
+          "id": "163711",
+          "name": "W32-34",
+          "isSelected": false
+        },
+        {
+          "count": 19,
+          "id": "164897",
+          "name": "Chest 42-44",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "attribute_10155",
+      "name": "Body Fit",
+      "facetValues": [
+        {
+          "count": 142,
+          "id": "6764",
+          "name": "Main Collection",
+          "isSelected": false
+        },
+        {
+          "count": 18,
+          "id": "7699",
+          "name": "Plus Size",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Single-Column",
+      "facetType": "TextMultiSelect",
+      "hasSelectedValues": false
+    },
+    {
+      "id": "currentprice",
+      "name": "Price Range",
+      "facetValues": [
+        {
+          "count": 1,
+          "id": "8.0",
+          "name": "8.0",
+          "isSelected": false
+        },
+        {
+          "count": 3,
+          "id": "429.0",
+          "name": "429.0",
+          "isSelected": false
+        }
+      ],
+      "displayStyle": "Price-Slider",
+      "facetType": "Range",
+      "hasSelectedValues": false
+    }
+  ],
+  "diagnostics": {
+    "requestId": "30e6859b-73de-4d99-906e-0cf75b3a3c15",
+    "processingTime": 82,
+    "queryTime": 76,
+    "recommendationsEnabled": false,
+    "recommendationsAnalytics": {
+      "personalisationStatus": 5,
+      "numberOfItems": 0,
+      "numberOfRecs": 0,
+      "personalisationType": "",
+      "experimentTrackerkey": "",
+      "items": []
+    },
+    "advertisementsEnabled": true,
+    "advertisementsAnalytics": {
+      "status": 10,
+      "customerOptIn": false,
+      "numberOfItemsFromPartner": 0,
+      "items": [],
+      "itemsFromPartner": [],
+      "placementBeacons": {
+        "onLoadBeacon": null,
+        "onViewBeacon": null
+      }
+    },
+    "curationAnalytics": {
+      "status": 9,
+      "numberOfCuratedItems": 0,
+      "elevatedItems": [],
+      "fixedItems": [],
+      "comingSoonItems": [],
+      "advertisementPositions": [],
+      "marketingItems": []
+    }
+  },
+  "searchPassMeta": {
+    "isPartial": false,
+    "isSpellcheck": false,
+    "searchPass": [],
+    "alternateSearchTerms": []
+  },
+  "queryId": null,
+  "discoverSearchProductTypes": [],
+  "campaigns": {
+    "imageTiles": [],
+    "promoBanners": [],
+    "sponsoredProducts": []
+  }
+}

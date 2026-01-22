@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary data
+temp/
+tmp/
+
+# Sensitive files
+.env
+.env.local
+.env.*.local
+
+# Scraped data files (optional - comment out if you want to keep)
+successful_products*.json
+failed_products*.json
+checkpoint_*.json
+working_*_sample.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# API keys and credentials
+secrets/
+credentials/
+
+# Supabase keys (add to .env instead)
+config.py
