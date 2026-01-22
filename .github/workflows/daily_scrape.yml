@@ -61,7 +61,7 @@ jobs:
 
     - name: Upload scraper logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: scraper-logs-${{ github.run_number }}
         path: |
@@ -94,7 +94,7 @@ jobs:
 
     - name: Upload summary
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: run-summary-${{ github.run_number }}
         path: summary.md
