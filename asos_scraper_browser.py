@@ -103,7 +103,24 @@ class ASOSBrowserScraper:
             )
             self.context = await self.browser.new_context(
                 user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                viewport={'width': 1920, 'height': 1080}
+                viewport={'width': 1920, 'height': 1080},
+                locale='en-US',
+                timezone_id='America/New_York',
+                permissions=['geolocation'],
+                geolocation={'latitude': 40.7128, 'longitude': -74.0060},  # New York coordinates
+                extra_http_headers={
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                    'Accept-Language': 'en-US,en;q=0.9',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'DNT': '1',
+                    'Connection': 'keep-alive',
+                    'Upgrade-Insecure-Requests': '1',
+                    'Sec-Fetch-Dest': 'document',
+                    'Sec-Fetch-Mode': 'navigate',
+                    'Sec-Fetch-Site': 'none',
+                    'Sec-Fetch-User': '?1',
+                    'Cache-Control': 'max-age=0'
+                }
             )
 
     async def close_browser(self):
@@ -122,37 +139,122 @@ class ASOSBrowserScraper:
 
         try:
             logger.info(f"Loading category page: {category_url}")
+
+            # Monitor network requests to see if products are loaded via API
+            api_calls = []
+
+            def log_request(request):
+                if 'api' in request.url.lower() or 'product' in request.url.lower():
+                    api_calls.append({
+                        'url': request.url,
+                        'method': request.method,
+                        'headers': dict(request.headers)
+                    })
+                    logger.info(f"API call: {request.method} {request.url}")
+
+            page.on('request', log_request)
+
             await page.goto(category_url, wait_until='networkidle', timeout=30000)
 
-            # Wait for products to load
-            await page.wait_for_timeout(3000)
+            # Wait for initial page load
+            await page.wait_for_timeout(5000)
 
             # Try to find products on the page
             # ASOS loads products dynamically, so we need to scroll and wait
             await self.scroll_and_wait(page)
+
+            # Additional wait for AJAX content
+            await page.wait_for_timeout(5000)
+
+            # Debug: Check page structure
+            page_info = await page.evaluate("""
+                () => {
+                    const info = {
+                        title: document.title,
+                        url: window.location.href,
+                        productTileCount: document.querySelectorAll('[data-auto-id="productTile"]').length,
+                        productCardCount: document.querySelectorAll('.product-card').length,
+                        productItemCount: document.querySelectorAll('.product-item').length,
+                        productLinks: document.querySelectorAll('a[href*="/prd/"]').length,
+                        allDivs: document.querySelectorAll('div').length,
+                        bodyText: document.body.textContent.substring(0, 500)
+                    };
+                    return info;
+                }
+            """)
+
+            logger.info(f"Page info: {page_info}")
 
             # Extract product data from the page
             product_data = await page.evaluate("""
                 () => {
                     const products = [];
 
-                    // Look for product tiles/cards
-                    const productElements = document.querySelectorAll('[data-auto-id="productTile"], .productTile, .product-card, .product');
+                    // Try multiple selectors for ASOS products
+                    const selectors = [
+                        '[data-auto-id="productTile"]',
+                        '[data-testid="productTile"]',
+                        '.productTile',
+                        '.product-card',
+                        '.product-item',
+                        '[data-product]',
+                        '.product'
+                    ];
+
+                    let productElements = [];
+                    for (const selector of selectors) {
+                        productElements = document.querySelectorAll(selector);
+                        if (productElements.length > 0) {
+                            console.log(`Found ${productElements.length} products with selector: ${selector}`);
+                            break;
+                        }
+                    }
+
+                    // If no products found with specific selectors, try to find all links to products
+                    if (productElements.length === 0) {
+                        const allLinks = document.querySelectorAll('a[href*="/prd/"]');
+                        console.log(`Found ${allLinks.length} product links on page`);
+
+                        // Group links by product ID
+                        const productMap = new Map();
+
+                        allLinks.forEach(link => {
+                            const href = link.href;
+                            const match = href.match(/\/prd\/(\d+)/);
+                            if (match) {
+                                const productId = match[1];
+                                if (!productMap.has(productId)) {
+                                    productMap.set(productId, {
+                                        link: link,
+                                        href: href
+                                    });
+                                }
+                            }
+                        });
+
+                        // Convert map to array and create product elements
+                        productElements = Array.from(productMap.values()).map(item => item.link.parentElement || item.link);
+                        console.log(`Grouped into ${productElements.length} unique products`);
+                    }
+
+                    console.log(`Processing ${productElements.length} product elements`);
 
                     productElements.forEach((element, index) => {
                         try {
                             // Extract product information
-                            const link = element.querySelector('a[href*="/prd/"]');
-                            const img = element.querySelector('img');
-                            const priceElement = element.querySelector('[data-auto-id="productTilePrice"], .price, .product-price');
-                            const nameElement = element.querySelector('[data-auto-id="productTileDescription"], .product-name, .title');
+                            const link = element.querySelector('a[href*="/prd/"]') || element.closest('a[href*="/prd/"]') || element;
+                            const img = element.querySelector('img') || element.querySelector('[data-src]');
+                            const priceElement = element.querySelector('[data-auto-id*="price"], .price, .product-price, [class*="price"]');
+                            const nameElement = element.querySelector('[data-auto-id*="title"], [data-auto-id*="name"], .product-name, .title, h3, h4');
 
-                            if (link && link.href) {
+                            if (link && link.href && link.href.includes('/prd/')) {
+                                const productId = link.href.match(/\/prd\/(\d+)/)?.[1] || `temp_${index}`;
+
                                 const product = {
-                                    id: link.href.match(/\/prd\/(\d+)/)?.[1] || `temp_${index}`,
-                                    name: nameElement?.textContent?.trim() || '',
+                                    id: productId,
+                                    name: nameElement?.textContent?.trim() || link?.textContent?.trim() || `Product ${productId}`,
                                     url: link.href,
-                                    imageUrl: img?.src || img?.getAttribute('data-src') || '',
+                                    imageUrl: img?.src || img?.getAttribute('data-src') || img?.getAttribute('srcset')?.split(',')[0]?.split(' ')[0] || '',
                                     price: {
                                         current: {
                                             value: null,
@@ -168,23 +270,79 @@ class ASOSBrowserScraper:
                                 };
 
                                 // Try to extract price value
-                                const priceMatch = product.price.current.text.match(/[\d,]+\.?\d*/);
+                                const priceText = product.price.current.text;
+                                const priceMatch = priceText.match(/[\d,]+\.?\d*/);
                                 if (priceMatch) {
                                     product.price.current.value = parseFloat(priceMatch[0].replace(',', ''));
                                 }
 
-                                products.push(product);
+                                // Only add if we have at least a name and URL
+                                if (product.name && product.url) {
+                                    products.push(product);
+                                }
                             }
                         } catch (e) {
                             console.log('Error extracting product:', e);
                         }
                     });
 
+                    console.log(`Successfully extracted ${products.length} products`);
                     return products;
                 }
             """)
 
             logger.info(f"Found {len(product_data)} products on page")
+
+            # If no products found, try the search backup URL
+            if len(product_data) == 0 and 'search_backup_url' in locals():
+                logger.info(f"No products found on category page, trying search backup: {search_backup_url}")
+                await page.goto(search_backup_url, wait_until='networkidle', timeout=30000)
+                await page.wait_for_timeout(5000)
+                await self.scroll_and_wait(page)
+                await page.wait_for_timeout(5000)
+
+                product_data = await page.evaluate("""
+                    () => {
+                        const products = [];
+                        const productElements = document.querySelectorAll('a[href*="/prd/"]');
+
+                        productElements.forEach((element, index) => {
+                            try {
+                                const href = element.href;
+                                const match = href.match(/\/prd\/(\d+)/);
+                                if (match && !products.some(p => p.id === match[1])) {
+                                    const img = element.querySelector('img');
+                                    const nameElement = element.querySelector('h3, h4, .title') || element;
+
+                                    products.push({
+                                        id: match[1],
+                                        name: nameElement?.textContent?.trim() || `Product ${match[1]}`,
+                                        url: href,
+                                        imageUrl: img?.src || '',
+                                        price: {
+                                            current: {
+                                                value: null,
+                                                text: ''
+                                            }
+                                        },
+                                        brandName: 'ASOS',
+                                        colour: '',
+                                        colourWayId: null,
+                                        hasVariantColours: false,
+                                        productCode: null,
+                                        productType: 'Product'
+                                    });
+                                }
+                            } catch (e) {
+                                console.log('Error extracting product from search:', e);
+                            }
+                        });
+
+                        return products.slice(0, 20); // Limit to 20 products
+                    }
+                """)
+
+                logger.info(f"Search backup found {len(product_data)} products")
 
             # Process products with embeddings
             for product in product_data[:20]:  # Limit to first 20 products per category for testing
@@ -209,15 +367,43 @@ class ASOSBrowserScraper:
     async def scroll_and_wait(self, page):
         """Scroll down the page to load more products"""
         try:
+            # First, try to click any "load more" or "show more" buttons
+            load_more_selectors = [
+                'button[data-auto-id*="loadMore"]',
+                'button[class*="load-more"]',
+                'button:contains("Load More")',
+                'button:contains("Show More")',
+                '[data-auto-id*="pagination"] button',
+                '.pagination button'
+            ]
+
+            for selector in load_more_selectors:
+                try:
+                    button = await page.query_selector(selector)
+                    if button:
+                        logger.info(f"Found load more button with selector: {selector}")
+                        await button.click()
+                        await page.wait_for_timeout(3000)
+                        break
+                except Exception:
+                    continue
+
             # Scroll down multiple times to load products
-            for i in range(3):
+            for i in range(5):  # Increased from 3 to 5
                 await page.evaluate("""
                     window.scrollTo(0, document.body.scrollHeight);
                 """)
                 await page.wait_for_timeout(2000)
 
+            # Try infinite scroll by scrolling to bottom multiple times
+            for i in range(3):
+                await page.evaluate("""
+                    window.scrollTo(0, document.body.scrollHeight + 1000);
+                """)
+                await page.wait_for_timeout(1500)
+
             # Wait a bit more for dynamic content
-            await page.wait_for_timeout(3000)
+            await page.wait_for_timeout(5000)
 
         except Exception as e:
             logger.warning(f"Error during scrolling: {e}")
@@ -370,7 +556,17 @@ class ASOSBrowserScraper:
                     break
 
             category_name = category_info.get('title', 'Unknown') if category_info else 'Unknown'
-            category_url = category_info.get('web_url', f'https://www.asos.com/search/?q={category_id}') if category_info else f'https://www.asos.com/search/?q={category_id}'
+            category_url = category_info.get('web_url') if category_info else None
+
+            # If no category URL, try a search-based approach
+            if not category_url:
+                # Try searching for the category name
+                search_term = category_name.lower().replace(' ', '+').replace('&', 'and')
+                category_url = f'https://www.asos.com/search/?q={search_term}'
+                logger.info(f"No category URL found, using search: {category_url}")
+
+            # If category URL exists but might be problematic, also try search as backup
+            search_backup_url = f'https://www.asos.com/search/?q={category_name.lower().replace(" ", "+").replace("&", "and")}'
 
             logger.info(f"[{i+1}/{len(categories_to_scrape)}] Scraping category {category_id}: {category_name}")
 
